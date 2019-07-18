@@ -7,7 +7,7 @@ const db = require('../db');
 //This router list all the products
 router.get('/list',async(req,res)=>{
     const lstProducts = await //we wait for list of products
-        db.query('SELECT code, name, description, amount, urlImage, idCategory FROM product;');
+        db.query('SELECT id, code, name, description, amount, urlImage, idCategory FROM product;');
         res.send(lstProducts);
 });
 
@@ -62,6 +62,19 @@ router.put('/update/:id',async(req,res)=>{
     //Return the transaction status 
     res.send(newProduct);
 
+});
+
+//This router list all the products
+router.get('/search/:textSearch?',async(req,res)=>{
+    const {textSearch} = req.params;
+    var query = 'SELECT id, code, name, description, amount, urlImage, idCategory FROM product ';
+    if(textSearch){
+        query += 'WHERE (code=?) OR (name LIKE "%'+textSearch+'%") OR (description LIKE "%'+textSearch+'%")';
+    }
+
+    const lstProducts = await //we wait for list of products
+        db.query(query,[textSearch]);
+        res.send(lstProducts);
 });
 
 module.exports = router;

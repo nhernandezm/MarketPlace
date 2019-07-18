@@ -1,0 +1,59 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Market Place</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+        <script src="app"></script>
+        <script src="productCtl"></script>
+    </head>
+    <body>
+
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Market Place</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="categories">Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="products">Products</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container margin-top-content" ng-app="market-place" ng-controller="ProductCtl">
+            <h1>{{title}}</h1>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1"><span class="fa fa-search" aria-hidden="true"></span></span>
+                </div>
+                <input ng-model="textSearch" ng-keyup="search()" type="text" class="form-control" placeholder="{{placeholder}}" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <br>
+            <div class="view-products">
+                <div class="card card-product" style="width: 18rem;" ng-repeat="product in listProducts">
+                    <img src="{{product.urlImagePrincipal}}" class="card-img-top img-card" alt="...">
+                    <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text">{{product.description}}</p>
+                    <a href="#" class="btn btn-primary"><span class="fa fa-shopping-cart" aria-hidden="true"></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
