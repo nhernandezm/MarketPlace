@@ -19,6 +19,9 @@ After of download the repositorio set the configurations:
 #### Frontend
 2) Go to the file web\app.js and set the server key, put the server ip and port
 
+#### Data Base
+3) Go to the file src\database\db.sql and execute en mysql to create the database that use the application
+
 ### Installation
 Create a folder with name your want and go in to folder:
 
