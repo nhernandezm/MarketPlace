@@ -18,7 +18,9 @@ After of download the repositorio set the configurations:
 2) Go to the file web\app.js and set the server key, put the server ip and port
 
 ### Installation
-Go to folder MarketPlace and:
+Create a folder with name your want and go in to folder:
+
+$ git clone https://github.com/nhernandezm/MarketPlace.git .
 
 $ npm install (Install dependences)
 
