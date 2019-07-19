@@ -18,6 +18,7 @@ After of download the repositorio set the configurations:
 2) Go to the file web\app.js and set the server key, put the server ip and port
 
 ### Installation
+Go to folder MarketPlace and:
 
 $ npm install (Install dependences)
 
