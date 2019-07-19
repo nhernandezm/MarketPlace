@@ -30,3 +30,5 @@ $ git clone https://github.com/nhernandezm/MarketPlace.git .
 $ npm install (Install dependences)
 
 $  npm run dev (To start node server)
+
+Go to browser 
