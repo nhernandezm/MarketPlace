@@ -8,6 +8,8 @@ It can to search products by text or for a category, so you can add and remove p
 
 The aplications is create with Node.js (12.6.0) and Mysql(10.1.16-MariaDB) In the Backend and AngularJS (1.7.8), Bootstrap(Version 4.3) and jquery (3.4.1) in the Frontend.
 
+The Backend are a set of API which are consumed by the frontend by HTTP.
+
 ### Configuration
 
 After of download the repositorio set the configurations:
