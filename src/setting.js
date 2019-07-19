@@ -4,5 +4,8 @@ module.exports = {
         'database':'marketplace',
         'user':'root',
         'password':null
+    },
+    node:{
+        port:5000
     }
 };

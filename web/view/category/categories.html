@@ -10,7 +10,6 @@
         <script src="categoryCtl"></script>
     </head>
     <body>
-
         <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
             <div class="container">
                 <a class="navbar-brand" href="#">Market Place</a>
@@ -28,7 +27,7 @@
                         <a class="nav-link" href="categories">Categories <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Products</a>
+                        <a class="nav-link" href="products">Products</a>
                     </li>
                 </ul>
                 </div>
@@ -40,7 +39,9 @@
                 <table width="100%">
                     <tr>
                         <td><h1>{{title}}</h1></td>
-                        <td align="center"><span class="fa fa-plus" aria-hidden="true"></span></td>
+                        <td align="center">
+                            <a class="btn btn-primary" href="categories/new" role="button"><span class="fa fa-plus" aria-hidden="true"></span></a>                            
+                        </td>
                     </tr>
                 </table>
                 <table class="table table-striped">
@@ -60,8 +61,8 @@
                     <td>{{category.name}}</td>
                     <td>{{category.description}}</td>
                     <td>
-                        <span class="fa fa-edit" aria-hidden="true"></span>
-                        <span class="fa fa-remove" aria-hidden="true"></span>                        
+                        <a class="btn btn-primary" href="categories/update/{{category.id}}" role="button"><span class="fa fa-edit" aria-hidden="true"></span></a>                            
+                        <button type="button" ng-click="delete(category);" class="btn btn-danger"><span class="fa fa-remove" aria-hidden="true"></span></button>
                     </td>
                   </tr>
                 </tbody>

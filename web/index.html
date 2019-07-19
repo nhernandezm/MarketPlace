@@ -6,10 +6,12 @@
         <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
         <link href="css" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="  crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         <script src="app"></script>
         <script src="productCtl"></script>
     </head>
-    <body>
+    <body ng-app="market-place" ng-controller="ProductCtl">  
 
         <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
             <div class="container">
@@ -30,12 +32,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="products">Products</a>
                     </li>
+                    <li >
+                        <button ng-click="showDetailCart()" type="button" class="btn btn-primary">
+                            <span class="fa fa-shopping-cart" aria-hidden="true"></span> <span class="badge badge-light">{{amountTotalAdded}}</span><span class="badge badge-light">{{countProductAdded}}</span>
+                        </button>
+                    </li>
                 </ul>
                 </div>
             </div>
         </nav>
 
-        <div class="container margin-top-content" ng-app="market-place" ng-controller="ProductCtl">
+        <div class="container margin-top-content" >
             <h1>{{title}}</h1>
             <div class="input-group mb-3">
                 <div class="input-group-prepend">
@@ -43,17 +50,91 @@
                 </div>
                 <input ng-model="textSearch" ng-keyup="search()" type="text" class="form-control" placeholder="{{placeholder}}" aria-label="Username" aria-describedby="basic-addon1">
             </div>
+
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1"><span class="fa fa-search" aria-hidden="true">Category</span></span>
+                </div>
+                <select ng-change="searchByCategory()" ng-model="idCategoryToSearch" class="form-control form-control-sm">
+                        <option value="">All</option>
+                        <option ng-repeat="category in listCategories" value="{{category.id}}" ng-selected="category.id == objProduct.idCategory">{{category.name}}</option>
+                </select>
+            </div>           
+
             <br>
             <div class="view-products">
-                <div class="card card-product" style="width: 18rem;" ng-repeat="product in listProducts">
-                    <img src="{{product.urlImagePrincipal}}" class="card-img-top img-card" alt="...">
+                <div  class="card card-product" style="width: 18rem;" ng-repeat="product in listProducts">
+                    <img ng-click="showDetail(product)" src="{{product.urlImagePrincipal}}" class="card-img-top img-card" alt="...">
                     <div class="card-body">
-                    <h5 class="card-title">{{product.name}}</h5>
-                    <p class="card-text">{{product.description}}</p>
-                    <a href="#" class="btn btn-primary"><span class="fa fa-shopping-cart" aria-hidden="true"></span></a>
+                    <h5 ng-click="showDetail(product)" class="card-title">{{product.name}}</h5>
+                    <h5 class="card-title">{{product.amount}}</h5>
+                    <p  ng-click="showDetail(product)" class="card-text">{{product.description}}</p>
+                    <a ng-click="addCart(product)" class="btn btn-primary"><span class="fa fa-shopping-cart" aria-hidden="true"></span></a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!--This modal is to see the product detail-->
+        <div class="modal fade" id="modalDetailProduc" tabindex="-1" role="dialog" aria-labelledby="ModalLabel1" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">{{productSelected.name}}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card card-product" style="width: 100%;" >
+                        <img src="{{productSelected.urlImagePrincipal}}" class="card-img-top img-card" alt="...">
+                        <div class="d-flex justify-content-center">
+                                <nav>
+                                        <ul class="pagination">                                
+                                            <li class="page-item" ng-repeat="(key, imgSelected) in productSelected.listUrlImage"><a class="page-link" ng-click="productSelected.urlImagePrincipal = imgSelected">{{key +1}}</a></li>                                
+                                        </ul>
+                                    </nav>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{productSelected.name}}</h5>
+                            <p class="card-text">{{productSelected.description}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
+        <!--This modal is to see the product detail-->
+        <div class="modal fade" id="modalDetailCart" tabindex="-1" role="dialog" aria-labelledby="ModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Detail cart</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    </div>
+                    <div class="modal-body">
+                        <div  class="card card-product" style="width: 100%;" ng-repeat="product in listProductsCart">
+                            <div class="card-body">
+                                <h5 class="card-title">{{product.name}}</h5>
+                                <h5 class="card-title">{{product.amount}}</h5>
+                                <p class="card-text">{{product.description}}</p>
+                                <button ng-click="removeCart(product)" class="btn btn-primary"><span class="fa fa-remove" aria-hidden="true"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>

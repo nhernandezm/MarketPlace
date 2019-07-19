@@ -11,6 +11,14 @@ router.get('/list',async(req,res)=>{
         res.send(lstProducts);
 });
 
+//This router get a product by id
+router.get('/list/:id',async(req,res)=>{
+    const {id} = req.params;
+    const lstProducts = await //we wait for list of categories
+        db.query('SELECT id, code, name, description, amount, urlImage, idCategory FROM product WHERE id = ?;',[id]);
+        res.send(lstProducts[0]);
+});
+
 //This router delete a product by id
 router.delete('/delete/:id',async(req,res)=>{
     const {id} = req.params;
@@ -74,6 +82,16 @@ router.get('/search/:textSearch?',async(req,res)=>{
 
     const lstProducts = await //we wait for list of products
         db.query(query,[textSearch]);
+        res.send(lstProducts);
+});
+
+//This router list all the products
+router.get('/search/category/:id',async(req,res)=>{
+    const {id} = req.params;
+    var query = 'SELECT id, code, name, description, amount, urlImage, idCategory FROM product WHERE idCategory = ?';
+
+    const lstProducts = await //we wait for list of products
+        db.query(query,[id]);
         res.send(lstProducts);
 });
 

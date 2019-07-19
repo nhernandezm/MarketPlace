@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Market Place</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.8/angular.min.js"></script>
+        <script src="../../app"></script>
+        <script src="../../productCtl"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow fixed-top">
+            <div class="container">
+                <a class="navbar-brand" href="#">Market Place</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../../categories">Categories <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../../products">Products</a>
+                    </li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="container margin-top-content" ng-app="market-place" ng-controller="ProductCtl">
+                
+            <table width="100%">
+                <tr>
+                    <td><h1>{{titleNew}}</h1></td>
+                </tr>
+            </table>
+
+            <form name="productForm">
+
+                <div class="container d-flex flex-row bd-highlight" >
+
+                    <div class="form-group col-4">
+                        <label for="inputCategory">Category *</label>
+                        <select  required ng-model="objProduct.idCategory" class="form-control form-control-sm">
+                            <option ng-repeat="category in listCategories" value="{{category.id}}" ng-selected="category.id == objProduct.idCategory">{{category.name}}</option>
+                        </select>
+                        <ng-messages ng-show="!objProduct.idCategory && !isValid">
+                            <ng-message when="required">Category is required</ng-message>
+                        </ng-messages>
+                    </div>
+
+                    <div class="form-group col-4">
+                        <label for="inputCode">Code *</label>
+                        <input required ng-model="objProduct.code" class="form-control form-control-sm" type="text" placeholder="Enter code">
+                        <ng-messages ng-show="!objProduct.code && !isValid">
+                            <ng-message when="required">Code is required, This code must be unique for each product</ng-message>
+                        </ng-messages>
+                    </div>
+    
+                    <div class="form-group col-4">
+                        <label for="inputName">Name *</label>
+                        <input required ng-model="objProduct.name" name="productName" class="form-control form-control-sm" type="text" placeholder="Enter name">
+                        <ng-messages ng-show="!objProduct.name && !isValid">
+                            <ng-message when="required">Name is required</ng-message>
+                        </ng-messages>
+                    </div>
+
+                </div>
+                <div class="container d-flex flex-row bd-highlight" >
+                    
+                    <div class="form-group col-4">
+                        <label for="inputName">Amount *</label>
+                        <input required ng-model="objProduct.amount" name="productAmount" class="form-control form-control-sm" type="number" placeholder="Enter amount">
+                        <ng-messages ng-show="!objProduct.amount && !isValid">
+                            <ng-message when="required">Amount is required, it is the product value</ng-message>
+                        </ng-messages>
+                    </div>
+
+                    <div class="form-group col-4">
+                        <label for="inputDescription">Description *</label>
+                        <textarea required ng-model="objProduct.description" class="form-control form-control-sm" placeholder="Enter description" id="inputDescription" rows="3"></textarea>
+                        <ng-messages ng-show="!objProduct.description && !isValid">
+                            <ng-message when="required">Description is required, Please write a description about this product</ng-message>
+                        </ng-messages>
+                    </div>
+
+                    <div class="form-group col-4">
+                        <label for="inputUrls">Urls images*</label>
+                        <textarea required ng-model="objProduct.urlImage" class="form-control form-control-sm" placeholder="Enter urls" id="inputUrls" rows="3"></textarea>
+                        <small id="urlsHelp" class="form-text text-muted">Please add urls separated by ; for add more than one url. Each url would be a image of the product</small>
+                        <ng-messages ng-show="!objProduct.urlImage && !isValid">
+                            <ng-message when="required">Urls is required, Please write a urls of the images</ng-message>
+                        </ng-messages>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="form-group col-12 d-flex flex-row-reverse bd-highlight">
+                        <div class="px-md-1"><button ng-click="save()" type="button" class="btn btn-primary btn-sm">Save</button></div>
+                        <div><button type="button" ng-click="cancel()"  class="btn btn-secondary btn-sm">Cancel</button></div>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+    </body>
+</html>
